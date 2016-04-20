@@ -9,6 +9,9 @@
     "require": {
         "theiconic/php-ga-measurement-protocol": "^2.1"
     },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
     "license": "MIT",
     "authors": [
         {

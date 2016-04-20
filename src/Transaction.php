@@ -20,7 +20,7 @@ class Transaction extends Base
     const ACTION_REFUND = 'Refund';
     const ACTION_REMOVE = 'Remove';
 
-    public function setId($transactionID){
+    public function setTransactionId($transactionID){
         $this->api()->setTransactionId($transactionID);
         return $this;
     }
