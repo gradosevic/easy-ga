@@ -11,7 +11,7 @@ class Product
     private $variant = '';
     private $price = 0;
     private $quantity = 1;
-    private $couponCode = 'TEST';
+    private $couponCode = '';
     private $position = 1;
 
     public function __construct(){
@@ -27,41 +27,49 @@ class Product
      * @return Product
      */
     public static function create($sku, $name, $price = 0, $quantity = 1){
-        $instance = new Product();
-        $instance->setSku($sku);
-        $instance->setName($name);
-        $instance->setPrice($price);
-        $instance->setQuantity($quantity);
-        return $instance;
+        return (new Product())
+        ->setSku($sku)
+        ->setName($name)
+        ->setPrice($price)
+        ->setQuantity($quantity);
     }
 
     //Setters
     public function setSku($value){
         $this->sku = $value;
+            return $this;
     }
     public function setName($value){
         $this->name = $value;
+        return $this;
     }
     public function setBrand($value){
         $this->brand = $value;
+        return $this;
     }
     public function setCategory($value){
         $this->category = $value;
+        return $this;
     }
     public function setVariant($value){
         $this->variant = $value;
+        return $this;
     }
     public function setPrice($value){
         $this->price = $value;
+        return $this;
     }
     public function setQuantity($value){
         $this->quantity = $value;
+        return $this;
     }
     public function setCouponCode($value){
         $this->couponCode = $value;
+        return $this;
     }
     public function setPosition($value){
         $this->position = $value;
+        return $this;
     }
 
     /**

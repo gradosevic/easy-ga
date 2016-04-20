@@ -6,12 +6,16 @@ namespace Gradosevic\EasyGA;
 class Event extends Base
 {
     public function setCategory($category){
-        $this->api()->setEventCategory($category);
+        if($category){
+            $this->api()->setEventCategory($category);
+        }
         return $this;
     }
 
     public function setAction($action){
-        $this->api()->setEventAction($action);
+        if($action){
+            $this->api()->setEventAction($action);
+        }
         return $this;
     }
 

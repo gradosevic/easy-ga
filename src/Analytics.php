@@ -54,7 +54,7 @@ class Analytics
      * @param mixed $value optional
      * @return Event
      */
-    public function event($category, $action, $label = null, $value = null)
+    public function event($category = null, $action = null, $label = null, $value = null)
     {
         return (new Event($this))
             ->setCategory($category)

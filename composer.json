@@ -1,8 +1,13 @@
 {
     "name": "gradosevic/easy-ga",
     "autoload": {
-        "psr-0" : {
-            "Gradosevic\\EasyGA" : "src"
+        "psr-4" : {
+            "Gradosevic\\EasyGA\\" : "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Gradosevic\\EasyGA\\Tests\\": "tests/"
         }
     },
     "description": "PHP Google Analytics library for easy use",
