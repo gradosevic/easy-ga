@@ -26,7 +26,7 @@ class Analytics
         ];
 
         if (!is_array($config)) {
-            $defaultOptions['id'] = $config;
+            $defaultOptions['tracking_id'] = $config;
             $config = $defaultOptions;
         } else {
             $config = array_merge($defaultOptions, $config);
@@ -56,11 +56,32 @@ class Analytics
      */
     public function event($category, $action, $label = null, $value = null)
     {
-        return (new Event($this->analytics))
+        return (new Event($this))
             ->setCategory($category)
             ->setAction($action)
             ->setLabel($label)
             ->setValue($value);
+    }
+
+    /**
+     * @param string $transactionID required
+     * @param string $affiliation optional
+     * @param number $revenue optional
+     * @param number $tax optional
+     * @param number $shipping optional
+     * @param string $coupon optional
+     * @return $this
+     */
+    public function transaction($transactionID, $affiliation = null, $revenue = null, $tax = null, $shipping = null, $coupon = null)
+    {
+        return (new Transaction($this))
+            ->setTransactionId($transactionID)
+            ->setAffiliation($affiliation)
+            ->setRevenue($revenue)
+            ->setTax($tax)
+            ->setShipping($shipping)
+            ->setCouponCode($coupon);
+        return $this;
     }
 
     public function getAnalytics()
