@@ -1,5 +1,10 @@
 {
     "name": "gradosevic/easy-ga",
+    "autoload": {
+        "psr-0" : {
+            "Gradosevic\\EasyGA" : "src"
+        }
+    },
     "description": "PHP Google Analytics library for easy use",
     "require": {
         "theiconic/php-ga-measurement-protocol": "^2.1"
