@@ -1,0 +1,14 @@
+{
+    "name": "gradosevic/easy-ga",
+    "description": "PHP Google Analytics library for easy use",
+    "require": {
+        "theiconic/php-ga-measurement-protocol": "^2.1"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Goran Radosevic",
+            "email": "goran.radosevic@outlook.com"
+        }
+    ]
+}
