@@ -1,6 +1,7 @@
 <?php
 
 namespace Gradosevic\EasyGA;
+
 /**
  * Class Analytics
  * @package Gradosevic\EasyGA
@@ -11,41 +12,87 @@ class Analytics
 {
     private $analytics;
 
-    public function __construct($userID = ''){
-        $this->analytics = new GA(true);
-        $this->analytics->setProtocolVersion('1')
-            ->setAsyncRequest(true)
-            ->setTrackingId(env('GOOGLE_ANALYTICS_ID'))
-            ->setUserId($userID)
+    /**
+     * @param $config tracking_id | Array
+     */
+    public function __construct($config)
+    {
+        $defaultOptions = [
+            'tracking_id' => '',
+            'protocol_version' => 1,
+            'client_id' => 1,
+            'user_id' => 1,
+            'is_async' => true
+        ];
 
-            //TODO: Use different value for client id
-            ->setClientId($userID);
+        if (!is_array($config)) {
+            $defaultOptions['id'] = $config;
+            $config = $defaultOptions;
+        } else {
+            $config = array_merge($defaultOptions, $config);
+        }
+
+        $a = new GA(true);
+        $a->setProtocolVersion($config['protocol_version'])
+            ->setAsyncRequest($config['is_async'])
+            ->setTrackingId($config['tracking_id'])
+            ->setUserId($config['user_id'])
+            ->setClientId($config['client_id']);
+
+        $this->analytics = $a;
     }
 
-    public static function create($userId){
-        return new Analytics($userId);
+    public static function create($config)
+    {
+        return new self($config);
     }
 
-    public function getAnalytics(){
+    /**
+     * @param string $category required
+     * @param string $action required
+     * @param string $label optional
+     * @param mixed $value optional
+     * @return Event
+     */
+    public function event($category, $action, $label = null, $value = null)
+    {
+        return (new Event($this->analytics))
+            ->setCategory($category)
+            ->setAction($action)
+            ->setLabel($label)
+            ->setValue($value);
+    }
+
+    public function getAnalytics()
+    {
         return $this->analytics;
     }
 
-    public function setIP($ip){
+    public function api()
+    {
+        return $this->analytics;
+    }
+
+    public function setIP($ip)
+    {
         $this->analytics->setIpOverride($ip);
         return $this;
     }
 
-    public function setCM($value, $index){
+    public function setCM($value, $index)
+    {
         $this->analytics->setCustomMetric($value, $index);
         return $this;
     }
 
-    public function setCD($value, $index){
+    public function setCD($value, $index)
+    {
         $this->analytics->setCustomDimension($value, $index);
         return $this;
     }
 
-    public function setTransaction($transactionID, $affiliation = '', $revenue = 0, $coupon = ''){
+    public function setTransaction($transactionID, $affiliation = '', $revenue = 0, $coupon = '')
+    {
         $this->analytics->setTransactionId($transactionID)
             ->setAffiliation($affiliation)
             ->setRevenue($revenue)
@@ -54,18 +101,22 @@ class Analytics
             ->setCouponCode($coupon);
         return $this;
     }
-    public function setProduct(Product $product){
+
+    public function setProduct(Product $product)
+    {
         $this->analytics->addProduct($product->get());
         return $this;
     }
 
-    public function sendPageView($documentPath){
+    public function sendPageView($documentPath)
+    {
         $this->analytics->setDocumentPath($documentPath);
         $this->analytics->sendPageview();
         return $this;
     }
 
-    public function sendPurchase(){
+    public function sendPurchase()
+    {
         $this->analytics->setProductActionToPurchase();
         $this->analytics->setEventCategory('Checkout')
             ->setEventAction('Purchase')
@@ -74,7 +125,8 @@ class Analytics
             ->sendEvent();
     }
 
-    public function sendEvent(){
+    public function sendEvent()
+    {
 
     }
 
