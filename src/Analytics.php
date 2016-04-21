@@ -48,6 +48,22 @@ class Analytics
     }
 
     /**
+     *
+     * @param string $path required - Starts with /
+     * @param $title
+     * @param $hostName
+     * @param $referrer
+     * @return Page
+     */
+    public function page($path, $title, $hostName, $referrer){
+        return (new Page())
+            ->setDocumentPath($path)
+            ->setDocumentTitle($title)
+            ->setDocumentHostName($hostName)
+            ->setDocumentReferrer($referrer);
+    }
+
+    /**
      * @param string $category required
      * @param string $action required
      * @param string $label optional
@@ -70,9 +86,9 @@ class Analytics
      * @param number $tax optional
      * @param number $shipping optional
      * @param string $coupon optional
-     * @return $this
+     * @return Transaction
      */
-    public function transaction($transactionID, $affiliation = null, $revenue = null, $tax = null, $shipping = null, $coupon = null)
+    public function transaction($transactionID, $affiliation, $revenue, $tax, $shipping, $coupon)
     {
         return (new Transaction($this))
             ->setTransactionId($transactionID)
@@ -81,7 +97,6 @@ class Analytics
             ->setTax($tax)
             ->setShipping($shipping)
             ->setCouponCode($coupon);
-        return $this;
     }
 
     public function getAnalytics()

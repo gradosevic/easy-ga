@@ -21,7 +21,9 @@ class Transaction extends Base
     const ACTION_REMOVE = 'Remove';
 
     public function setTransactionId($transactionID){
-        $this->api()->setTransactionId($transactionID);
+        if($transactionID) {
+            $this->api()->setTransactionId($transactionID);
+        }
         return $this;
     }
 
@@ -67,47 +69,47 @@ class Transaction extends Base
         return $this;
     }
 
-    public function add(){
+    public function sendAdd(){
         $this->setProductAction(self::ACTION_ADD);
         $this->send();
     }
 
-    public function checkout(){
+    public function sendCheckout(){
         $this->setProductAction(self::ACTION_CHECKOUT);
         $this->send();
     }
 
-    public function checkoutOption(){
+    public function sendCheckoutOption(){
         $this->setProductAction(self::ACTION_CHECKOUT_OPTION);
         $this->send();
     }
 
-    public function click(){
+    public function sendClick(){
         $this->setProductAction(self::ACTION_CLICK);
         $this->send();
     }
 
-    public function detail(){
+    public function sendDetail(){
         $this->setProductAction(self::ACTION_DETAIL);
         $this->send();
     }
 
-    public function purchase(){
+    public function sendPurchase(){
         $this->setProductAction(self::ACTION_PURCHASE);
         $this->send();
     }
 
-    public function refund(){
+    public function sendRefund(){
         $this->setProductAction(self::ACTION_REFUND);
         $this->send();
     }
 
-    public function remove(){
+    public function sendRemove(){
         $this->setProductAction(self::ACTION_REMOVE);
         $this->send();
     }
 
-    public function send(){
+    public function sendTransaction(){
         $this->api()->sendTransaction();
     }
 

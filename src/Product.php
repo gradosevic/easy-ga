@@ -14,10 +14,6 @@ class Product
     private $couponCode = '';
     private $position = 1;
 
-    public function __construct(){
-
-    }
-
     /**
      * Creates a basic product instance
      * @param $sku
