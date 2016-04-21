@@ -1,15 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: goran
- * Date: 21/04/16
- * Time: 09:45
- */
 
 namespace Gradosevic\EasyGA\Tests;
 
 use Gradosevic\EasyGA\Analytics;
-use Gradosevic\EasyGA\Page;
 
 class PageTest extends TestCase
 {

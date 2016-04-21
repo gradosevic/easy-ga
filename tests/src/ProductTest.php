@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: goran
- * Date: 20/04/16
- * Time: 23:16
- */
 
 namespace Gradosevic\EasyGA\Tests;
 

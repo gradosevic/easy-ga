@@ -55,8 +55,8 @@ class Analytics
      * @param $referrer
      * @return Page
      */
-    public function page($path, $title, $hostName, $referrer){
-        return (new Page())
+    public function page($path = null, $title = null, $hostName = null, $referrer = null){
+        return (new Page($this))
             ->setDocumentPath($path)
             ->setDocumentTitle($title)
             ->setDocumentHostName($hostName)
@@ -88,7 +88,7 @@ class Analytics
      * @param string $coupon optional
      * @return Transaction
      */
-    public function transaction($transactionID, $affiliation, $revenue, $tax, $shipping, $coupon)
+    public function transaction($transactionID = null, $affiliation = null, $revenue = null, $tax = null, $shipping = null, $coupon = null)
     {
         return (new Transaction($this))
             ->setTransactionId($transactionID)
@@ -99,71 +99,32 @@ class Analytics
             ->setCouponCode($coupon);
     }
 
-    public function getAnalytics()
-    {
-        return $this->analytics;
+    /**
+     * @param string $description
+     * @param bool|false $isFatal
+     * @return Exception
+     */
+    public function exception($description, $isFatal = false){
+        return (new Exception($this))
+            ->setDescription($description)
+            ->setIsFatal($isFatal);
     }
+
+    /**
+     * @param Page $page
+     * @return Impression
+     */
+    public function impression(Page $page){
+        if($page){
+            $page->setAnalytics($this);
+            $page->setApiData();
+        }
+        return (new Impression($this));
+    }
+
 
     public function api()
     {
         return $this->analytics;
     }
-
-    public function setIP($ip)
-    {
-        $this->analytics->setIpOverride($ip);
-        return $this;
-    }
-
-    public function setCM($value, $index)
-    {
-        $this->analytics->setCustomMetric($value, $index);
-        return $this;
-    }
-
-    public function setCD($value, $index)
-    {
-        $this->analytics->setCustomDimension($value, $index);
-        return $this;
-    }
-
-    public function setTransaction($transactionID, $affiliation = '', $revenue = 0, $coupon = '')
-    {
-        $this->analytics->setTransactionId($transactionID)
-            ->setAffiliation($affiliation)
-            ->setRevenue($revenue)
-            ->setTax(0)
-            ->setShipping(0)
-            ->setCouponCode($coupon);
-        return $this;
-    }
-
-    public function setProduct(Product $product)
-    {
-        $this->analytics->addProduct($product->get());
-        return $this;
-    }
-
-    public function sendPageView($documentPath)
-    {
-        $this->analytics->setDocumentPath($documentPath);
-        $this->analytics->sendPageview();
-        return $this;
-    }
-
-    public function sendPurchase()
-    {
-        $this->analytics->setProductActionToPurchase();
-        $this->analytics->setEventCategory('Checkout')
-            ->setEventAction('Purchase')
-            /* ->setCustomDimension(23, 1)
-             ->setCustomMetric(34,1)*/
-            ->sendEvent();
-    }
-
-    public function sendEvent()
-    {
-
-    }
-
 }

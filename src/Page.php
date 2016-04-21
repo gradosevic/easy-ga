@@ -1,49 +1,73 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: goran
- * Date: 20/04/16
- * Time: 18:49
- */
 
 namespace Gradosevic\EasyGA;
 
 
 class Page extends Base
 {
-    public function setDocumentHostName($affiliation){
-        if($affiliation){
-            $this->api()->setDocumentHostName($affiliation);
-        }
+    private $path;
+    private $title;
+    private $hostName;
+    private $referrer;
+
+    public function setDocumentHostName($hostName)
+    {
+        $this->hostName = $hostName;
         return $this;
     }
 
-    public function setDocumentReferrer($affiliation){
-        if($affiliation){
-            $this->api()->setDocumentReferrer($affiliation);
-        }
+    public function setDocumentReferrer($referrer)
+    {
+        $this->referrer = $referrer;
         return $this;
     }
 
-    public function setDocumentPath($affiliation){
-        if($affiliation){
-            $this->api()->setDocumentPath($affiliation);
-        }
+    public function setDocumentPath($path)
+    {
+        $this->path = $path;
         return $this;
     }
 
-    public function setDocumentTitle($affiliation){
-        if($affiliation){
-            $this->api()->setDocumentTitle($affiliation);
-        }
+    public function setDocumentTitle($title)
+    {
+        $this->title = $title;
         return $this;
     }
 
-    /*$a = Analytics::create(config('session.user.id'))->getAnalytics();
-        $a->setDocumentHostName('cusmin.com')
-            ->setDocumentReferrer('myblog.com')
-            ->setDocumentPath('/app/service/activate')
-            ->setDocumentTitle('Page Title')
-            ->sendPageview();*/
+    public function send()
+    {
+        $this->validate();
+        $this->setApiData();
+        $this->api()->sendPageview();
+    }
 
+    public function setAnalytics($easyAnalytics){
+        parent::setAnalytics($easyAnalytics);
+    }
+
+    /**
+     * Sets Api data from privately stored data
+     * Not required to call if Page->send() method is used
+     */
+    public function setApiData()
+    {
+        if ($this->title) {
+            $this->api()->setDocumentTitle($this->title);
+        }
+
+        if ($this->hostName) {
+            $this->api()->setDocumentHostName($this->hostName);
+        }
+
+        if ($this->referrer) {
+            $this->api()->setDocumentReferrer($this->referrer);
+        }
+    }
+
+    protected function validate()
+    {
+        if (!$this->path) {
+            throw new \Exception('Page path can not be empty');
+        }
+    }
 }

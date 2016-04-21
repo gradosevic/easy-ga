@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: goran
- * Date: 20/04/16
- * Time: 23:30
- */
 
 namespace Gradosevic\EasyGA\Tests;
 
@@ -15,15 +9,16 @@ class TransactionTest extends TestCase
 {
     public function test_minimal_purchase()
     {
-        $transactionID = 231545;
+        $transactionID = 2314;
         Analytics::create($this->config)
             ->transaction($transactionID)
+            ->setProduct(Product::create('MINPRODUCT-56471', 'Min Product', 1.99))
             ->sendPurchase();
     }
 
     public function test_complete_purchase_create_from_constructor()
     {
-        $transactionID = 231545;
+        $transactionID = 2315;
         $affiliation = 'Affiliate Name';
         $revenue = 456.99;
         $tax = 10.0;
@@ -37,7 +32,7 @@ class TransactionTest extends TestCase
 
     public function test_complete_purchase_create_from_methods()
     {
-        $transactionID = 231545;
+        $transactionID = 2316;
         $affiliation = 'Affiliate Name';
         $revenue = 456.99;
         $tax = 10.0;
@@ -57,7 +52,7 @@ class TransactionTest extends TestCase
 
     public function test_purchase_with_products()
     {
-        $transactionID = 231545;
+        $transactionID = 2317;
         $affiliation = '';
         $revenue = 456.99;
         $tax = 10.0;
@@ -109,8 +104,12 @@ class TransactionTest extends TestCase
         $transaction->sendRemove();
     }
 
+    /**
+     * @param $transactionID
+     * @return Transaction
+     */
     private function getTransactionInstance($transactionID){
-        $transactionID = $transactionID;
+        $transactionID = $transactionID.'-'.rand(1000, 5000);
         $affiliation = 'Affiliate '. rand(100, 500);
         $revenue = rand(40, 999);
         $tax = rand(1,20);
@@ -118,6 +117,7 @@ class TransactionTest extends TestCase
         $coupon = '10OFF';
 
         return Analytics::create($this->config)
-            ->transaction($transactionID, $affiliation, $revenue, $tax, $shipping, $coupon);
+            ->transaction($transactionID, $affiliation, $revenue, $tax, $shipping, $coupon)
+            ->setProduct(Product::create('SHIRT-324', 'Shirt', 22.99));
     }
 }

@@ -10,7 +10,7 @@ PHP Google Analytics library for quick and easy use
 </a>
 
 #About
-This library was created for people who want to start using Google Analytics with minimum time for setup. 
+This library was created for people who want to start using Google Analytics Measurement Protocol with minimum time for setup.
 It is basically a wrapper for [theiconic/php-ga-measurement-protocol](https://github.com/theiconic/php-ga-measurement-protocol) with easy to use objects.
 
 For more information about API please check official documentation:
@@ -113,16 +113,153 @@ Analytics::create($config)
 ```
 
 ##Sending Page Views
-TBD
+
+####Minimal
+```php
+Analytics::create($config)
+    ->page('/simple/page/view', 'Simple Page View')
+    ->send();
+```
+
+####Complete
+```php
+$path = '/document/page/from/methods';
+$title = 'Page Complete From Methods';
+$hostname = 'mydomain.com';
+$referrer = 'myblog.com';
+
+Analytics::create($config)
+    ->page()
+    ->setDocumentPath($path)
+    ->setDocumentTitle($title)
+    ->setDocumentHostName($hostname)
+    ->setDocumentReferrer($referrer)
+    ->send();
+```
 
 ##Sending Custom Data
-TBD
+To send custom data we need to define it in Google Analytics first:
+- Log in to Google Analytics
+- Go to Admin tab
+- Select Account
+- In property column click on **Custom Definitions**->**Custom Dimensions**
+- Click on +New Custom Dimension, give it a name, scope -> Hit and make sure it's active
+- Click Create
+- Remember index (it will be used in Easy GA)
+- Click on **Custom Definitions**->**Custom Metrics**
+- Click on +New Custom Dimension, give it a name, scope -> Hit, Type -> Integer, make sure it's active
+- Click Create
+- We have created custom dimension with index 1. Repeat the process for new data
+
+
+```php
+Analytics::create($config)
+    ->event()
+    ->setCategory('Custom Data')
+    ->setAction('Custom Data Action')
+    ->setLabel('Sent Custom Values')
+    ->setCustomDimension('custom value a', 1) // Index is 1
+    ->setCustomDimension('custom value b', 2) // Index is 2
+    ->setValue(9) // Event value
+    ->send();
+```
+
+To read custom data:
+
+- Go to **Reporting -> Behaviour -> Events -> Overview**
+- Click on Event Actions
+- Click on action with custom data: "Custom Data Action" (in our example)
+- Click on Secondary Dimension dropdown
+- Choose Custom Dimensions -> [your_custom_dimension_name]
+- Number of hits with custom data should appear in the table
 
 ##Sending Transactions
-TBD
+
+####Minimal
+```php
+use Gradosevic\EasyGA\Analytics;
+use Gradosevic\EasyGA\Product;
+
+Analytics::create($config)
+    ->transaction('TransactionID-2342541')
+    ->setProduct(Product::create('MINPRODUCT-56471', 'Min Product', 1.99))
+    ->sendPurchase();
+```
+
+####Complete
+```php
+$transactionID = 2315;
+$affiliation = 'Affiliate Name';
+$revenue = 456.99;
+$tax = 10.0;
+$shipping = 9.99;
+$coupon = '20OFF';
+
+Analytics::create($config)
+    ->transaction($transactionID, $affiliation, $revenue, $tax, $shipping, $coupon)
+    ->sendPurchase();
+```
+
+####Looping through products (example)
+In case you need to loop throug products, you should unchain Easy GA like this:
+```php
+$products = array(); //Load your products
+$transaction = Analytics::create($config)->transaction('2384287');
+
+foreach($products as $product){
+    $transaction->setProduct(Product::create($product['sku'], $product['name'], $product['price']))
+}
+
+$transaction->sendPurchase();
+```
+
+####Product properties
+Product has following properties:
+- category
+- brand
+- coupon
+- name
+- position
+- price
+- quantity
+- sku
+- variant
+
+To set all product's properties, create new product object and use setter methods:
+
+```php
+$product = (new Product())
+    ->setCategory('Product category')
+    ->setBrand('Product brand')
+     // ...
+    ->setVariant($variant);
+```
+
+**To read transactions:**
+- Wait for about 10 minutes or less to see the data
+- Go to **Reporting -> Conversions -> E-commerce -> Overview**
+- Click on time filter on right (Hourly, Day) and Revenue Sources below to see the data
+- Click on other options under E-commerce to see other reports
+- Important: Sometimes the data is not shown and you need to click on some filters to show it (time filters or links below)
+
+##Sending Exceptions
+```php
+Analytics::create($config)
+    ->exception('IOException')
+    ->send();
+```
+To show custom exceptions in Dashboard please follow [this tutorial](http://stackoverflow.com/questions/21718481/report-for-exceptions-from-google-analytics-analytics-js-exception-tracking):
+
+
 
 ##Tests
 For other examples how to use this library, please look at the tests in the library
+
+## License
+
+Easy GA is licensed under the [MIT license](http://opensource.org/licenses/MIT)
+
+Author: [Goran Radosevic](https://github.com/gradosevic)
 
 
 

@@ -74,14 +74,21 @@ class Product
      */
     public function get(){
         $data = [
+            'price' => $this->price,
+            'quantity' => $this->quantity,
+            'coupon_code' => $this->couponCode
+        ];
+        //Extend impression array with additional data
+        return array_merge($data, $this->getImpression());
+    }
+
+    public function getImpression(){
+        $data = [
             'sku' => $this->sku,
             'name' => $this->name,
             'brand' => $this->brand,
             'category' => $this->category,
             'variant' => $this->variant,
-            'price' => $this->price,
-            'quantity' => $this->quantity,
-            'coupon_code' => $this->couponCode,
             'position' => $this->position,
         ];
         return $data;

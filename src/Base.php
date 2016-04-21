@@ -5,9 +5,9 @@ namespace Gradosevic\EasyGA;
 
 abstract class Base
 {
-    private $easyAnalytics;
+    protected $easyAnalytics;
 
-    public function __construct(Analytics $easyAnalytics){
+    public function __construct(Analytics $easyAnalytics = null){
         $this->easyAnalytics = $easyAnalytics;
     }
 
@@ -16,10 +16,14 @@ abstract class Base
     }
 
     public function api(){
-        return $this->easyAnalytics->api();
+        return $this->easyAnalytics? $this->easyAnalytics->api():null;
     }
 
-    public function send(){
+    protected function setAnalytics($easyAnalytics){
+        $this->easyAnalytics = $easyAnalytics;
+    }
+
+    protected function send(){
         $this->api()->sendPageview();
     }
 }
