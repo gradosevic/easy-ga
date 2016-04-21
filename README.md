@@ -13,10 +13,10 @@ PHP Google Analytics library for quick and easy use
 This library was created for people who want to start using Google Analytics Measurement Protocol with minimum time for setup.
 It is basically a wrapper for [theiconic/php-ga-measurement-protocol](https://github.com/theiconic/php-ga-measurement-protocol) with easy to use objects.
 
-For more information about API please check official documentation:
+For more information about API please check:
 - [The Iconic API](https://github.com/theiconic/php-ga-measurement-protocol)
 - [Working with Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide)
-- [Measurement Protocol Parameters Reference](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters)
+- [Measurement Protocol Parameter Reference](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters)
 
 
 
@@ -29,6 +29,7 @@ For more information about API please check official documentation:
 - Send Page Views
 - Send Custom Data
 - Send Transactions
+- Send Exceptions
 
 ##Configuration
 
@@ -84,32 +85,6 @@ Analytics::create($config)
     ->setLabel('Event Methods-Label')
     ->setValue(11)
     ->send();
-```
-
-##Advanced: Access to All API Methods
-Easy GA objects provide simplest possible set of data to send to GA. If you need to set more data, you can always access underlying library API and all it's methods, simple by using `api()` method whenever you need it in code.
-**Example**: Use Easy GA for required data and add other data from API:
-
-```php
-Analytics::create($config)
-            // Using Easy GA Event constructor to pass data
-            ->event('Advanced Event Group', 'Advanced Event Action')
-
-            // Using Easy GA class methods
-            ->setLabel('Event wcd label')
-
-            // The moment when we switch to API
-            ->api()
-
-            // Using API method
-            ->setDocumentReferrer('referrer.com')
-
-            // Using API method
-            ->setDocumentPath('/event/document/path')
-
-            // Important: We can not use Easy GA send() method any more.
-            // We have to use API send method now.
-            ->sendEvent();
 ```
 
 ##Sending Page Views
@@ -250,7 +225,31 @@ Analytics::create($config)
 ```
 To show custom exceptions in Dashboard please follow [this tutorial](http://stackoverflow.com/questions/21718481/report-for-exceptions-from-google-analytics-analytics-js-exception-tracking):
 
+##Advanced: Access to All API Methods
+Easy GA objects provide simplest possible set of data to send to GA. If you need to set more data, you can always access underlying library API and all it's methods, simple by using `api()` method whenever you need it in code.
+**Example**: Use Easy GA for required data and add other data from API:
 
+```php
+Analytics::create($config)
+            // Using Easy GA Event constructor to pass data
+            ->event('Advanced Event Group', 'Advanced Event Action')
+
+            // Using Easy GA class methods
+            ->setLabel('Event wcd label')
+
+            // The moment when we switch to API
+            ->api()
+
+            // Using API method
+            ->setDocumentReferrer('referrer.com')
+
+            // Using API method
+            ->setDocumentPath('/event/document/path')
+
+            // Important: We can not use Easy GA send() method any more.
+            // We have to use API send method now.
+            ->sendEvent();
+```
 
 ##Tests
 For other examples how to use this library, please look at the tests in the library

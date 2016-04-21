@@ -6,7 +6,7 @@ class Config
 {
     public static function get(){
         return [
-            'tracking_id' => 'UA-76528693-1',
+            'tracking_id' => 'UA-XXXXXXXX-1',
             'user_id' => 1,
             'client_id' => 1
         ];
