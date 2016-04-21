@@ -6,7 +6,13 @@ PHP Google Analytics library for quick and easy use
     <img src="http://img.shields.io/packagist/v/gradosevic/easy-ga.svg?style=flat" style="vertical-align: text-top">
 </a>
 <a href="https://packagist.org/packages/gradosevic/easy-ga">
+    <img src="https://img.shields.io/github/tag/gradosevic/easy-ga.svg?style=flat" style="vertical-align: text-top">
+</a>
+<a href="https://packagist.org/packages/gradosevic/easy-ga">
     <img src="http://img.shields.io/packagist/dt/gradosevic/easy-ga.svg?style=flat" style="vertical-align: text-top">
+</a>
+<a href="https://packagist.org/packages/gradosevic/easy-ga">
+    <img src="https://img.shields.io/github/issues/gradosevic/easy-ga.svg?style=flat" style="vertical-align: text-top">
 </a>
 
 #About
