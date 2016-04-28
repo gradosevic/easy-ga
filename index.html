@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Easy-ga by gradosevic</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Easy-ga</h1>
+      <h2 class="project-tagline">PHP Google Analytics library for easy use</h2>
+      <a href="https://github.com/gradosevic/easy-ga" class="btn">View on GitHub</a>
+      <a href="https://github.com/gradosevic/easy-ga/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/gradosevic/easy-ga/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="easy-ga" class="anchor" href="#easy-ga" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>easy-ga</h1>
+
+<p>PHP Google Analytics library for quick and easy use</p>
+
+<p><a href="https://packagist.org/packages/gradosevic/easy-ga">
+    <img src="http://img.shields.io/packagist/v/gradosevic/easy-ga.svg?style=flat">
+</a>
+<a href="https://packagist.org/packages/gradosevic/easy-ga">
+    <img src="https://img.shields.io/github/tag/gradosevic/easy-ga.svg?style=flat">
+</a>
+<a href="https://packagist.org/packages/gradosevic/easy-ga">
+    <img src="http://img.shields.io/packagist/dt/gradosevic/easy-ga.svg?style=flat">
+</a>
+<a href="https://packagist.org/packages/gradosevic/easy-ga">
+    <img src="https://img.shields.io/github/issues/gradosevic/easy-ga.svg?style=flat">
+</a></p>
+
+<h1>
+<a id="about" class="anchor" href="#about" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>About</h1>
+
+<p>This library was created for people who want to start using Google Analytics Measurement Protocol with minimum time for setup.
+It is basically a wrapper for <a href="https://github.com/theiconic/php-ga-measurement-protocol">theiconic/php-ga-measurement-protocol</a> with easy to use objects.</p>
+
+<p>For more information about API please check:</p>
+
+<ul>
+<li><a href="https://github.com/theiconic/php-ga-measurement-protocol">The Iconic API</a></li>
+<li><a href="https://developers.google.com/analytics/devguides/collection/protocol/v1/devguide">Working with Measurement Protocol</a></li>
+<li><a href="https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters">Measurement Protocol Parameter Reference</a></li>
+</ul>
+
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installation</h1>
+
+<h5>
+<a id="composer-require-gradoseviceasy-ga" class="anchor" href="#composer-require-gradoseviceasy-ga" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a><code>composer require gradosevic/easy-ga</code>
+</h5>
+
+<h2>
+<a id="supported-features" class="anchor" href="#supported-features" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Supported Features</h2>
+
+<ul>
+<li>Send Events</li>
+<li>Send Page Views</li>
+<li>Send Custom Data</li>
+<li>Send Transactions</li>
+<li>Send Exceptions</li>
+</ul>
+
+<h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h2>
+
+<h4>
+<a id="minimal" class="anchor" href="#minimal" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Minimal</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$config</span> <span class="pl-k">=</span> [</span>
+<span class="pl-s1">  <span class="pl-s"><span class="pl-pds">'</span>tracking_id<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>UA-XXXXXXXX-1<span class="pl-pds">'</span></span></span>
+<span class="pl-s1">];</span></pre></div>
+
+<p>or </p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$config</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>UA-XXXXXXXX-1<span class="pl-pds">'</span></span>;</span></pre></div>
+
+<h4>
+<a id="default" class="anchor" href="#default" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Default</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$config</span> <span class="pl-k">=</span> [</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>tracking_id<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>protocol_version<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">1</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>client_id<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">1</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>user_id<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">1</span>,</span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>is_async<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-c1">true</span></span>
+<span class="pl-s1">];</span></pre></div>
+
+<h2>
+<a id="sending-events" class="anchor" href="#sending-events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sending Events</h2>
+
+<h4>
+<a id="send-simple-event" class="anchor" href="#send-simple-event" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Send simple event</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Gradosevic\EasyGA\Analytics</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>event(<span class="pl-s"><span class="pl-pds">'</span>Simple Event Group<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Simple Event Action<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>send();</span></pre></div>
+
+<p>that's it!</p>
+
+<h4>
+<a id="send-complete-event-using-constructor" class="anchor" href="#send-complete-event-using-constructor" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Send complete event using constructor</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>event(<span class="pl-s"><span class="pl-pds">'</span>Event Constructor<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Event Constr-Action<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Event Constr-Label<span class="pl-pds">'</span></span>, <span class="pl-c1">45</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>send();</span></pre></div>
+
+<h4>
+<a id="send-complete-event-using-event-class-methods" class="anchor" href="#send-complete-event-using-event-class-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Send complete event using Event class methods</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>event()</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setCategory(<span class="pl-s"><span class="pl-pds">'</span>Event Methods<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setAction(<span class="pl-s"><span class="pl-pds">'</span>Event Methods-Action<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setLabel(<span class="pl-s"><span class="pl-pds">'</span>Event Methods-Label<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setValue(<span class="pl-c1">11</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>send();</span></pre></div>
+
+<h2>
+<a id="sending-page-views" class="anchor" href="#sending-page-views" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sending Page Views</h2>
+
+<h4>
+<a id="minimal-1" class="anchor" href="#minimal-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Minimal</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>page(<span class="pl-s"><span class="pl-pds">'</span>/simple/page/view<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Simple Page View<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>send();</span></pre></div>
+
+<h4>
+<a id="complete" class="anchor" href="#complete" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Complete</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$path</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>/document/page/from/methods<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$title</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Page Complete From Methods<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$hostname</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>mydomain.com<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$referrer</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>myblog.com<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>page()</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setDocumentPath(<span class="pl-smi">$path</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setDocumentTitle(<span class="pl-smi">$title</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setDocumentHostName(<span class="pl-smi">$hostname</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setDocumentReferrer(<span class="pl-smi">$referrer</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>send();</span></pre></div>
+
+<h2>
+<a id="sending-custom-data" class="anchor" href="#sending-custom-data" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sending Custom Data</h2>
+
+<p>To send custom data we need to define it in Google Analytics first:</p>
+
+<ul>
+<li>Log in to Google Analytics</li>
+<li>Go to Admin tab</li>
+<li>Select Account</li>
+<li>In property column click on <strong>Custom Definitions</strong>-&gt;<strong>Custom Dimensions</strong>
+</li>
+<li>Click on +New Custom Dimension, give it a name, scope -&gt; Hit and make sure it's active</li>
+<li>Click Create</li>
+<li>Remember index (it will be used in Easy GA)</li>
+<li>Click on <strong>Custom Definitions</strong>-&gt;<strong>Custom Metrics</strong>
+</li>
+<li>Click on +New Custom Dimension, give it a name, scope -&gt; Hit, Type -&gt; Integer, make sure it's active</li>
+<li>Click Create</li>
+<li>We have created custom dimension with index 1. Repeat the process for new data</li>
+</ul>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>event()</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setCategory(<span class="pl-s"><span class="pl-pds">'</span>Custom Data<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setAction(<span class="pl-s"><span class="pl-pds">'</span>Custom Data Action<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setLabel(<span class="pl-s"><span class="pl-pds">'</span>Sent Custom Values<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setCustomDimension(<span class="pl-s"><span class="pl-pds">'</span>custom value a<span class="pl-pds">'</span></span>, <span class="pl-c1">1</span>) <span class="pl-c">// Index is 1</span></span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setCustomDimension(<span class="pl-s"><span class="pl-pds">'</span>custom value b<span class="pl-pds">'</span></span>, <span class="pl-c1">2</span>) <span class="pl-c">// Index is 2</span></span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setValue(<span class="pl-c1">9</span>) <span class="pl-c">// Event value</span></span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>send();</span></pre></div>
+
+<p>To read custom data:</p>
+
+<ul>
+<li>Go to <strong>Reporting -&gt; Behaviour -&gt; Events -&gt; Overview</strong>
+</li>
+<li>Click on Event Actions</li>
+<li>Click on action with custom data: "Custom Data Action" (in our example)</li>
+<li>Click on Secondary Dimension dropdown</li>
+<li>Choose Custom Dimensions -&gt; [your_custom_dimension_name]</li>
+<li>Number of hits with custom data should appear in the table</li>
+</ul>
+
+<h2>
+<a id="sending-transactions" class="anchor" href="#sending-transactions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sending Transactions</h2>
+
+<h4>
+<a id="minimal-2" class="anchor" href="#minimal-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Minimal</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Gradosevic\EasyGA\Analytics</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">Gradosevic\EasyGA\Product</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>transaction(<span class="pl-s"><span class="pl-pds">'</span>TransactionID-2342541<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setProduct(<span class="pl-c1">Product</span><span class="pl-k">::</span>create(<span class="pl-s"><span class="pl-pds">'</span>MINPRODUCT-56471<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Min Product<span class="pl-pds">'</span></span>, <span class="pl-c1">1.99</span>))</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>sendPurchase();</span></pre></div>
+
+<h4>
+<a id="complete-1" class="anchor" href="#complete-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Complete</h4>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$transactionID</span> <span class="pl-k">=</span> <span class="pl-c1">2315</span>;</span>
+<span class="pl-s1"><span class="pl-smi">$affiliation</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>Affiliate Name<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"><span class="pl-smi">$revenue</span> <span class="pl-k">=</span> <span class="pl-c1">456.99</span>;</span>
+<span class="pl-s1"><span class="pl-smi">$tax</span> <span class="pl-k">=</span> <span class="pl-c1">10.0</span>;</span>
+<span class="pl-s1"><span class="pl-smi">$shipping</span> <span class="pl-k">=</span> <span class="pl-c1">9.99</span>;</span>
+<span class="pl-s1"><span class="pl-smi">$coupon</span> <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>20OFF<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>transaction(<span class="pl-smi">$transactionID</span>, <span class="pl-smi">$affiliation</span>, <span class="pl-smi">$revenue</span>, <span class="pl-smi">$tax</span>, <span class="pl-smi">$shipping</span>, <span class="pl-smi">$coupon</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>sendPurchase();</span></pre></div>
+
+<h4>
+<a id="looping-through-products-example" class="anchor" href="#looping-through-products-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Looping through products (example)</h4>
+
+<p>In case you need to loop throug products, you should unchain Easy GA like this:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$products</span> <span class="pl-k">=</span> <span class="pl-c1">array</span>(); <span class="pl-c">//Load your products</span></span>
+<span class="pl-s1"><span class="pl-smi">$transaction</span> <span class="pl-k">=</span> <span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)<span class="pl-k">-&gt;</span>transaction(<span class="pl-s"><span class="pl-pds">'</span>2384287<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-k">foreach</span>(<span class="pl-smi">$products</span> <span class="pl-k">as</span> <span class="pl-smi">$product</span>){</span>
+<span class="pl-s1">    <span class="pl-smi">$transaction</span><span class="pl-k">-&gt;</span>setProduct(<span class="pl-c1">Product</span><span class="pl-k">::</span>create(<span class="pl-smi">$product</span>[<span class="pl-s"><span class="pl-pds">'</span>sku<span class="pl-pds">'</span></span>], <span class="pl-smi">$product</span>[<span class="pl-s"><span class="pl-pds">'</span>name<span class="pl-pds">'</span></span>], <span class="pl-smi">$product</span>[<span class="pl-s"><span class="pl-pds">'</span>price<span class="pl-pds">'</span></span>]))</span>
+<span class="pl-s1">}</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$transaction</span><span class="pl-k">-&gt;</span>sendPurchase();</span></pre></div>
+
+<h4>
+<a id="product-properties" class="anchor" href="#product-properties" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Product properties</h4>
+
+<p>Product has following properties:</p>
+
+<ul>
+<li>category</li>
+<li>brand</li>
+<li>coupon</li>
+<li>name</li>
+<li>position</li>
+<li>price</li>
+<li>quantity</li>
+<li>sku</li>
+<li>variant</li>
+</ul>
+
+<p>To set all product's properties, create new product object and use setter methods:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-smi">$product</span> <span class="pl-k">=</span> (<span class="pl-k">new</span> <span class="pl-c1">Product</span>())</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setCategory(<span class="pl-s"><span class="pl-pds">'</span>Product category<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setBrand(<span class="pl-s"><span class="pl-pds">'</span>Product brand<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">     <span class="pl-c">// ...</span></span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>setVariant(<span class="pl-smi">$variant</span>);</span></pre></div>
+
+<p><strong>To read transactions:</strong></p>
+
+<ul>
+<li>Wait for about 10 minutes or less to see the data</li>
+<li>Go to <strong>Reporting -&gt; Conversions -&gt; E-commerce -&gt; Overview</strong>
+</li>
+<li>Click on time filter on right (Hourly, Day) and Revenue Sources below to see the data</li>
+<li>Click on other options under E-commerce to see other reports</li>
+<li>Important: Sometimes the data is not shown and you need to click on some filters to show it (time filters or links below)</li>
+</ul>
+
+<h2>
+<a id="sending-exceptions" class="anchor" href="#sending-exceptions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Sending Exceptions</h2>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>exception(<span class="pl-s"><span class="pl-pds">'</span>IOException<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">    <span class="pl-k">-&gt;</span>send();</span></pre></div>
+
+<p>To show custom exceptions in Dashboard please follow <a href="http://stackoverflow.com/questions/21718481/report-for-exceptions-from-google-analytics-analytics-js-exception-tracking">this tutorial</a>:</p>
+
+<h2>
+<a id="advanced-access-to-all-api-methods" class="anchor" href="#advanced-access-to-all-api-methods" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Advanced: Access to All API Methods</h2>
+
+<p>Easy GA objects provide simplest possible set of data to send to GA. If you need to set more data, you can always access underlying library API and all it's methods, simple by using <code>api()</code> method whenever you need it in code.
+<strong>Example</strong>: Use Easy GA for required data and add other data from API:</p>
+
+<div class="highlight highlight-text-html-php"><pre><span class="pl-s1"><span class="pl-c1">Analytics</span><span class="pl-k">::</span>create(<span class="pl-smi">$config</span>)</span>
+<span class="pl-s1">            <span class="pl-c">// Using Easy GA Event constructor to pass data</span></span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>event(<span class="pl-s"><span class="pl-pds">'</span>Advanced Event Group<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Advanced Event Action<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-c">// Using Easy GA class methods</span></span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>setLabel(<span class="pl-s"><span class="pl-pds">'</span>Event wcd label<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-c">// The moment when we switch to API</span></span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>api()</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-c">// Using API method</span></span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>setDocumentReferrer(<span class="pl-s"><span class="pl-pds">'</span>referrer.com<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-c">// Using API method</span></span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>setDocumentPath(<span class="pl-s"><span class="pl-pds">'</span>/event/document/path<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">            <span class="pl-c">// Important: We can not use Easy GA send() method any more.</span></span>
+<span class="pl-s1">            <span class="pl-c">// We have to use API send method now.</span></span>
+<span class="pl-s1">            <span class="pl-k">-&gt;</span>sendEvent();</span></pre></div>
+
+<h2>
+<a id="tests" class="anchor" href="#tests" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Tests</h2>
+
+<p>For other examples how to use this library, please look at the tests in the library</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h2>
+
+<p>Easy GA is licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a></p>
+
+<p>Author: <a href="https://github.com/gradosevic">Goran Radosevic</a></p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/gradosevic/easy-ga">Easy-ga</a> is maintained by <a href="https://github.com/gradosevic">gradosevic</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
