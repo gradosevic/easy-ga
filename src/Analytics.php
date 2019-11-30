@@ -6,9 +6,9 @@ namespace Gradosevic\EasyGA;
  * Class Analytics
  * @package Gradosevic\EasyGA
  */
-use TheIconic\Tracking\GoogleAnalytics\Analytics as GA;
+use TheIconic\Tracking\GoogleAnalytics\Analytic s as GA;
 
-class Analytics
+clas Analytics
 {
     private $analytics;
 
